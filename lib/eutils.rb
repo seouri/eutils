@@ -66,8 +66,12 @@ class Eutils
 
   # EGQuery: Provides Entrez database counts in XML for a single search using Global Query.
   # See also: http://eutils.ncbi.nlm.nih.gov/corehtml/query/static/egquery_help.html
-  def egquery
-    
+  def egquery(term)
+    term.strip! if term.class == String
+    server = EUTILS_HOST + "egquery.fcgi"
+    params = {"term" => term}
+    response = post_eutils(server, params)
+    return hash_from_response(response)
   end
 
   # ESpell: Retrieves spelling suggestions.

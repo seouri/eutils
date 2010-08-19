@@ -38,4 +38,11 @@ class TestEutils < Test::Unit::TestCase
     assert_equal :eInfoResult, i.keys.first
     assert_equal "pubmed", i[:eInfoResult][:DbInfo][:DbName]
   end
+
+  should "get hash from EGQuery" do
+    i = eutils.egquery("autism")
+    assert_equal Hash, i.class
+    assert_equal :Result, i.keys.first
+    assert_equal "autism", i[:Result][:Term]
+  end
 end
