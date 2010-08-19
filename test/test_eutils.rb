@@ -39,6 +39,12 @@ class TestEutils < Test::Unit::TestCase
     assert_equal "pubmed", i[:eInfoResult][:DbInfo][:DbName]
   end
 
+  should "get spelling suggestion for a term" do
+    assert_equal "breast cancer", eutils.espell("brest cancr")
+    assert_equal "breast cancer", eutils.espell("brest cancer")
+    assert_equal "", eutils.espell(" ")
+  end
+
   should "get hash from EGQuery" do
     i = eutils.egquery("autism")
     assert_equal Hash, i.class

@@ -76,8 +76,14 @@ class Eutils
 
   # ESpell: Retrieves spelling suggestions.
   # See also: http://eutils.ncbi.nlm.nih.gov/corehtml/query/static/espell_help.html
-  def espell
-    
+  def espell(term)
+    term.strip! if term.class == String
+    server = EUTILS_HOST + "espell.fcgi"
+    params = {"db" => "pubmed", "term" => term}
+    response = post_eutils(server, params)
+    corrected = response.scan(/<CorrectedQuery>(.+)<\/CorrectedQuery>/).flatten.first.to_s
+    corrected = term if corrected.empty?
+    return corrected
   end
 
   private
