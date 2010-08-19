@@ -91,6 +91,8 @@ class Eutils
   def post_eutils(server, params)
     check_tool_and_email
     ncbi_access_wait
+    params["tool"] = tool
+    params["email"] = email
     response = Net::HTTP.post_form(URI.parse(server), params)
     return response.body
   end
