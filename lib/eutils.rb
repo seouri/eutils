@@ -36,14 +36,23 @@ class Eutils
 
   # ESearch: Searches and retrieves primary IDs (for use in EFetch, ELink, and ESummary) and term translations and optionally retains results for future use in the user's environment.
   # See also: http://eutils.ncbi.nlm.nih.gov/corehtml/query/static/esearch_help.html
+  # eutils.esearch("autism")
   def esearch
     
   end
 
   # EPost: Posts a file containing a list of primary IDs for future use in the user's environment to use with subsequent search strategies.
   # See also: http://eutils.ncbi.nlm.nih.gov/corehtml/query/static/epost_help.html
-  def epost
-    
+  # returns: webenv, querykey. Both nil for invalid epost.
+  def epost(ids, db = "pubmed", params = {})
+    params["id"] = ids.join(",")
+    params["db"] = db
+    server = EUTILS_HOST + "epost.fcgi"
+    response = post_eutils(server, params)
+    querykey = response.scan(/<QueryKey>(\d+)<\/QueryKey>/).flatten.first.to_i
+    querykey = nil if querykey == 0
+    webenv = response.scan(/<WebEnv>(\S+)<\/WebEnv>/).flatten.first
+    return webenv, querykey
   end
 
   # ESummary: Retrieves document summaries from a list of primary IDs or from the user's environment.

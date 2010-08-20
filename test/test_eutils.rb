@@ -39,6 +39,16 @@ class TestEutils < Test::Unit::TestCase
     assert_equal "pubmed", i[:eInfoResult][:DbInfo][:DbName]
   end
 
+  should "get webenv and querykey for posted ids" do
+    ids = [11877539, 11822933, 11871444]
+    webenv, querykey = eutils.epost(ids)
+    assert_equal 1, querykey
+    assert_equal "NCID", webenv.scan(/^(\w{4})/).flatten.first
+    webenv, querykey = eutils.epost(ids, "invalid")
+    assert_nil querykey
+    assert_nil webenv
+  end
+
   should "get spelling suggestion for a term" do
     assert_equal "breast cancer", eutils.espell("brest cancr")
     assert_equal "breast cancer", eutils.espell("brest cancer")
