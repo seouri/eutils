@@ -35,8 +35,8 @@ class TestEutils < Test::Unit::TestCase
   should "get a hash from EInfo with db parameter" do
     i = eutils.einfo("pubmed")
     assert_equal Hash, i.class
-    assert_equal :eInfoResult, i.keys.first
-    assert_equal "pubmed", i[:eInfoResult][:DbInfo][:DbName]
+    assert_equal "eInfoResult", i.keys.first
+    assert_equal "pubmed", i['eInfoResult']['DbInfo']['DbName']
   end
 
   should "get webenv and querykey from EPost for posted ids" do
@@ -52,8 +52,8 @@ class TestEutils < Test::Unit::TestCase
   should "get a hash from ESummary for posted ids" do
     ids = [11850928, 11482001]
     i = eutils.esummary(ids)
-    assert_equal String, i.class
-    #assert_equal ids[0], i[:eSummaryResult][:DocSum][0][:Id].to_i
+    assert_equal Hash, i.class
+    assert_equal ids[0], i['eSummaryResult']['DocSum'][0]['Id'].to_i
   end
 
   should "get spelling suggestion for a term" do
@@ -65,7 +65,7 @@ class TestEutils < Test::Unit::TestCase
   should "get hash from EGQuery" do
     i = eutils.egquery("autism")
     assert_equal Hash, i.class
-    assert_equal :Result, i.keys.first
-    assert_equal "autism", i[:Result][:Term]
+    assert_equal "Result", i.keys.first
+    assert_equal "autism", i["Result"]["Term"]
   end
 end

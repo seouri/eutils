@@ -2,6 +2,7 @@ require 'cgi'
 require 'net/http'
 require 'uri'
 require 'nokogiri'
+require 'activesupport'
 # Synopsis
 # eutils = Eutils.new("medvane", "joon@medvane.org")
 # eutils.einfo
@@ -30,7 +31,7 @@ class Eutils
     if db.nil? || db.empty?
       return response.scan(/<DbName>(\w+)<\/DbName>/).flatten
     else
-      return hash_from_response(response)  
+      return Hash.from_xml(response)
     end
   end
 
@@ -62,7 +63,7 @@ class Eutils
     params["db"] = db
     server = EUTILS_HOST + "esummary.fcgi"
     response = post_eutils(server, params)
-    return response
+    return Hash.from_xml(response)
   end
 
   # EFetch: Retrieves records in the requested format from a list of one or more primary IDs or from the user's environment.
@@ -84,7 +85,7 @@ class Eutils
     server = EUTILS_HOST + "egquery.fcgi"
     params = {"term" => term}
     response = post_eutils(server, params)
-    return hash_from_response(response)
+    return Hash.from_xml(response)
   end
 
   # ESpell: Retrieves spelling suggestions.
@@ -150,38 +151,5 @@ class Eutils
       raise 'Set tool parameter for the query, or set eutils.tool = "(your tool name)"'
     end
     nil
-  end
-
-  # Convert Nokogiri node to hash (adapted from http://gist.github.com/370755)
-  def hash_from_response(response)
-    node = Nokogiri::XML(response) {|cfg| cfg.noblanks.noent}
-    return { node.root.name.to_sym => xml_node_to_hash(node.root) }
-  end
-
-  def xml_node_to_hash(node)
-    return to_value(node.content.to_s) unless node.element?
-
-    result_hash = {}
-
-    node.attributes.each do |key, attr|
-      ( result_hash[:attributes] ||= Hash.new )[attr.name.to_sym] = to_value(attr.value)
-    end
-
-    node.children.each do |child|
-      result = xml_node_to_hash(child)
-
-      if child.name == "text"
-        return to_value(result) unless child.next_sibling || child.previous_sibling
-      else
-        key, val = child.name.to_sym, to_value(result)
-        result_hash[key] = result_hash.key?(key) ? Array(result_hash[key]).push(val) : val
-      end
-    end
-
-    result_hash
-  end
-
-  def to_value(data)
-    data.is_a?(String) && data =~ /^\d+$/ ? data.to_i : data
   end
 end
