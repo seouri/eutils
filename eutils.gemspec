@@ -9,20 +9,20 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joon Lee"]
-  s.date = %q{2010-08-19}
+  s.date = %q{2010-08-20}
   s.description = %q{This gem only provides API for NCBI Eutils. If you need full access to other NCBI databases, try BioRuby (bio gem) instead.}
   s.email = %q{seouri@gmail.com}
   s.extra_rdoc_files = [
-    "LICENSE",
-     "README.rdoc"
+    "README.rdoc"
   ]
   s.files = [
     ".document",
      ".gitignore",
-     "LICENSE",
+     "MIT-LICENSE",
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "eutils.gemspec",
      "lib/eutils.rb",
      "test/helper.rb",
      "test/test_eutils.rb"

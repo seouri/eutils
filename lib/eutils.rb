@@ -57,8 +57,12 @@ class Eutils
 
   # ESummary: Retrieves document summaries from a list of primary IDs or from the user's environment.
   # See also: http://eutils.ncbi.nlm.nih.gov/corehtml/query/static/esummary_help.html
-  def esummary
-    
+  def esummary(ids, db = "pubmed", params = {})
+    params["id"] = ids.join(",")
+    params["db"] = db
+    server = EUTILS_HOST + "esummary.fcgi"
+    response = post_eutils(server, params)
+    return response
   end
 
   # EFetch: Retrieves records in the requested format from a list of one or more primary IDs or from the user's environment.

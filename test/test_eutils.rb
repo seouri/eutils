@@ -32,14 +32,14 @@ class TestEutils < Test::Unit::TestCase
     assert_equal Array, eutils.einfo("  ").class
   end
 
-  should "get hash from EInfo with db parameter" do
+  should "get a hash from EInfo with db parameter" do
     i = eutils.einfo("pubmed")
     assert_equal Hash, i.class
     assert_equal :eInfoResult, i.keys.first
     assert_equal "pubmed", i[:eInfoResult][:DbInfo][:DbName]
   end
 
-  should "get webenv and querykey for posted ids" do
+  should "get webenv and querykey from EPost for posted ids" do
     ids = [11877539, 11822933, 11871444]
     webenv, querykey = eutils.epost(ids)
     assert_equal 1, querykey
@@ -47,6 +47,13 @@ class TestEutils < Test::Unit::TestCase
     webenv, querykey = eutils.epost(ids, "invalid")
     assert_nil querykey
     assert_nil webenv
+  end
+
+  should "get a hash from ESummary for posted ids" do
+    ids = [11850928, 11482001]
+    i = eutils.esummary(ids)
+    assert_equal String, i.class
+    #assert_equal ids[0], i[:eSummaryResult][:DocSum][0][:Id].to_i
   end
 
   should "get spelling suggestion for a term" do
