@@ -1,8 +1,7 @@
 require 'cgi'
 require 'net/http'
 require 'uri'
-require 'nokogiri'
-require 'activesupport'
+require 'active_support/core_ext/hash/conversions'
 # Synopsis
 # eutils = Eutils.new("medvane", "joon@medvane.org")
 # eutils.einfo
@@ -14,8 +13,8 @@ class Eutils
   EUTILS_INTERVAL = 1.0 / 3.0
   @@last_access = nil
   @@last_access_mutex = nil
-
   attr_accessor :tool, :email
+  ActiveSupport::XmlMini.backend = "LibXMLSAX" # or "NokogiriSAX"
 
   def initialize(tool = nil, email = nil)
     @tool, @email = tool, email
@@ -74,8 +73,20 @@ class Eutils
 
   # EFetch: Retrieves records in the requested format from a list of one or more primary IDs or from the user's environment.
   # See also: http://eutils.ncbi.nlm.nih.gov/corehtml/query/static/efetch_help.html
-  def efetch
-    
+  def efetch(db, webenv, query_key, params = {})
+    params["db"] = db
+    params["WebEnv"] = webenv
+    params["query_key"] = query_key
+    params["retmode"] ||= "xml"
+    params["retstart"] ||= 0
+    params["retmax"] ||= 10
+    server = EUTILS_HOST + "efetch.fcgi"
+    response = post_eutils(server, params)
+    if params["retmode"] == "xml"
+      return Hash.from_xml(response)
+    else
+      return response
+    end
   end
 
   # ELink: Checks for the existence of an external or Related Articles link from a list of one or more primary IDs.  Retrieves primary IDs and relevancy scores for links to Entrez databases or Related Articles;  creates a hyperlink to the primary LinkOut provider for a specific ID and database, or lists LinkOut URLs and Attributes for multiple IDs.

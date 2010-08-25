@@ -63,6 +63,15 @@ class TestEutils < Test::Unit::TestCase
     assert_equal ids[0], i['eSummaryResult']['DocSum'][0]['Id'].to_i
   end
 
+  should "get a hash from EFetch for ESearch result" do
+    s = eutils.esearch("cancer")
+    webenv = s["eSearchResult"]["WebEnv"]
+    query_key = s["eSearchResult"]["QueryKey"]
+    r = eutils.efetch("pubmed", webenv, query_key)
+    assert_equal Hash, r.class
+    assert_equal "PubmedArticleSet", r.keys.first
+  end
+
   should "get spelling suggestion for a term" do
     assert_equal "breast cancer", eutils.espell("brest cancr")
     assert_equal "breast cancer", eutils.espell("brest cancer")
