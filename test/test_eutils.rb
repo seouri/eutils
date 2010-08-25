@@ -39,6 +39,13 @@ class TestEutils < Test::Unit::TestCase
     assert_equal "pubmed", i['eInfoResult']['DbInfo']['DbName']
   end
 
+  should "get a hash from ESearch for a term" do
+    r = eutils.esearch("cancer")
+    assert_equal Hash, r.class
+    assert_equal "cancer", r["eSearchResult"]["TranslationSet"]["Translation"]["From"]
+    assert_equal Array, r["eSearchResult"]["IdList"]["Id"].class
+  end
+
   should "get webenv and querykey from EPost for posted ids" do
     ids = [11877539, 11822933, 11871444]
     webenv, querykey = eutils.epost(ids)
