@@ -6,10 +6,10 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "eutils"
     gem.summary = %Q{Lightweight Ruby API for NCBI Eutils}
-    gem.description = %Q{This gem only provides API for NCBI Eutils. If you need full access to other NCBI databases, try BioRuby (bio gem) instead.}
+    gem.description = %Q{Lightweight Ruby API for NCBI Eutils. This gem only provides API for NCBI Eutils. If you need full access to other NCBI databases, try BioRuby (bio gem) instead.}
     gem.email = "seouri@gmail.com"
     gem.homepage = "http://github.com/seouri/eutils"
-    gem.authors = ["Joon Lee"]
+    gem.authors = ["Joon Lee, aka seouri"]
     gem.add_development_dependency "shoulda", ">= 0"
     gem.add_dependency "activesupport", ">= 3.0.0.rc2"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
