@@ -30,7 +30,7 @@ class Eutils
     if db.nil? || db.empty?
       return response.scan(/<DbName>(\w+)<\/DbName>/).flatten
     else
-      return Hash.from_xml(response)
+      return Hash.from_xml(response)["eInfoResult"]
     end
   end
 
@@ -44,7 +44,7 @@ class Eutils
     params["usehistory"] ||= "y"
     server = EUTILS_HOST + "esearch.fcgi"
     response = post_eutils(server, params)
-    return Hash.from_xml(response)
+    return Hash.from_xml(response)["eSearchResult"]
   end
 
   # EPost: Posts a file containing a list of primary IDs for future use in the user's environment to use with subsequent search strategies.
@@ -68,12 +68,12 @@ class Eutils
     params["db"] = db
     server = EUTILS_HOST + "esummary.fcgi"
     response = post_eutils(server, params)
-    return Hash.from_xml(response)
+    return Hash.from_xml(response)["eSummaryResult"]
   end
 
   # EFetch: Retrieves records in the requested format from a list of one or more primary IDs or from the user's environment.
   # See also: http://eutils.ncbi.nlm.nih.gov/corehtml/query/static/efetch_help.html
-  def efetch(db, webenv, query_key, params = {})
+  def efetch(db, webenv, query_key = 1, params = {})
     params["db"] = db
     params["WebEnv"] = webenv
     params["query_key"] = query_key
@@ -102,7 +102,7 @@ class Eutils
     server = EUTILS_HOST + "egquery.fcgi"
     params = {"term" => term}
     response = post_eutils(server, params)
-    return Hash.from_xml(response)
+    return Hash.from_xml(response)["Result"]
   end
 
   # ESpell: Retrieves spelling suggestions.

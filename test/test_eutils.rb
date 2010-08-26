@@ -35,15 +35,15 @@ class TestEutils < Test::Unit::TestCase
   should "get a hash from EInfo with db parameter" do
     i = eutils.einfo("pubmed")
     assert_equal Hash, i.class
-    assert_equal "eInfoResult", i.keys.first
-    assert_equal "pubmed", i['eInfoResult']['DbInfo']['DbName']
+    assert_equal "DbInfo", i.keys.first
+    assert_equal "pubmed", i['DbInfo']['DbName']
   end
 
   should "get a hash from ESearch for a term" do
     r = eutils.esearch("cancer")
     assert_equal Hash, r.class
-    assert_equal "cancer", r["eSearchResult"]["TranslationSet"]["Translation"]["From"]
-    assert_equal Array, r["eSearchResult"]["IdList"]["Id"].class
+    assert_equal "cancer", r["TranslationSet"]["Translation"]["From"]
+    assert_equal Array, r["IdList"]["Id"].class
   end
 
   should "get webenv and querykey from EPost for posted ids" do
@@ -60,13 +60,13 @@ class TestEutils < Test::Unit::TestCase
     ids = [11850928, 11482001]
     i = eutils.esummary(ids)
     assert_equal Hash, i.class
-    assert_equal ids[0], i['eSummaryResult']['DocSum'][0]['Id'].to_i
+    assert_equal ids[0], i['DocSum'][0]['Id'].to_i
   end
 
   should "get a hash from EFetch for ESearch result" do
     s = eutils.esearch("cancer")
-    webenv = s["eSearchResult"]["WebEnv"]
-    query_key = s["eSearchResult"]["QueryKey"]
+    webenv = s["WebEnv"]
+    query_key = s["QueryKey"]
     r = eutils.efetch("pubmed", webenv, query_key)
     assert_equal Hash, r.class
     assert_equal "PubmedArticleSet", r.keys.first
@@ -81,7 +81,8 @@ class TestEutils < Test::Unit::TestCase
   should "get hash from EGQuery" do
     i = eutils.egquery("autism")
     assert_equal Hash, i.class
-    assert_equal "Result", i.keys.first
-    assert_equal "autism", i["Result"]["Term"]
+    assert_equal "Term", i.keys.sort.first
+    assert_equal "eGQueryResult", i.keys.sort.last
+    assert_equal "autism", i["Term"]
   end
 end

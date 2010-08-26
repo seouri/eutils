@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{eutils}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joon Lee"]
-  s.date = %q{2010-08-25}
+  s.date = %q{2010-08-26}
   s.description = %q{This gem only provides API for NCBI Eutils. If you need full access to other NCBI databases, try BioRuby (bio gem) instead.}
   s.email = %q{seouri@gmail.com}
   s.extra_rdoc_files = [
@@ -43,14 +43,14 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<shoulda>, [">= 0"])
-      s.add_runtime_dependency(%q<nokogiri>, [">= 0"])
+      s.add_runtime_dependency(%q<activesupport>, [">= 3.0.0.rc2"])
     else
       s.add_dependency(%q<shoulda>, [">= 0"])
-      s.add_dependency(%q<nokogiri>, [">= 0"])
+      s.add_dependency(%q<activesupport>, [">= 3.0.0.rc2"])
     end
   else
     s.add_dependency(%q<shoulda>, [">= 0"])
-    s.add_dependency(%q<nokogiri>, [">= 0"])
+    s.add_dependency(%q<activesupport>, [">= 3.0.0.rc2"])
   end
 end
 
