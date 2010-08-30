@@ -1,6 +1,6 @@
 = eutils
 
-Description goes here.
+Lightweight Ruby API for NCBI Eutils. This gem only provides API for NCBI Eutils. If you need full access to other NCBI databases, try BioRuby (bio gem) instead.
 
 == Note on Patches/Pull Requests
  
@@ -14,4 +14,4 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2010 Joon Lee. See MIT-LICENSE for details.
+Copyright (c) 2010 Joon Lee aka seouri. See MIT-LICENSE for details.

@@ -11,7 +11,7 @@ begin
     gem.homepage = "http://github.com/seouri/eutils"
     gem.authors = ["Joon Lee, aka seouri"]
     gem.add_development_dependency "shoulda", ">= 0"
-    gem.add_dependency "activesupport", ">= 3.0.0.rc2"
+    gem.add_dependency "activesupport", ">= 3.0.0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
