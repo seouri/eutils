@@ -91,8 +91,19 @@ class Eutils
 
   # ELink: Checks for the existence of an external or Related Articles link from a list of one or more primary IDs.  Retrieves primary IDs and relevancy scores for links to Entrez databases or Related Articles;  creates a hyperlink to the primary LinkOut provider for a specific ID and database, or lists LinkOut URLs and Attributes for multiple IDs.
   # See also: http://eutils.ncbi.nlm.nih.gov/corehtml/query/static/elink_help.html
-  def elink
-    
+  def elink(ids, params = {})
+    params["id"] = ids.join(",")
+    params["cmd"] ||= "neighbor"
+    params["dbfrom"] ||= "pubmed"
+    params["db"] ||= "pubmed"
+    params["retmode"] ||= "xml"
+    server = EUTILS_HOST + "elink.fcgi"
+    response = post_eutils(server, params)
+    if params["retmode"] == "xml"
+      return Hash.from_xml(response)["eLinkResult"]
+    else
+      return response
+    end
   end
 
   # EGQuery: Provides Entrez database counts in XML for a single search using Global Query.
