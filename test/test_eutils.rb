@@ -81,8 +81,8 @@ class TestEutils < Test::Unit::TestCase
   should "get hash from EGQuery" do
     i = eutils.egquery("autism")
     assert_equal Hash, i.class
-    #assert_equal "Term", i.keys.sort.first
-    #assert_equal "eGQueryResult", i.keys.sort.last
-    #assert_equal "autism", i["Term"]
+    assert_equal "Term", i.keys.sort.first
+    assert_equal "eGQueryResult", i.keys.sort.last
+    assert_equal "autism", i["Term"]
   end
 end
