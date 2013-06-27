@@ -2,6 +2,7 @@ require 'cgi'
 require 'net/http'
 require 'uri'
 require 'active_support/core_ext/hash/conversions'
+require 'thread'
 # Synopsis
 # eutils = Eutils.new("medvane", "joon@medvane.org")
 # eutils.einfo
