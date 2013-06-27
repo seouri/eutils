@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{eutils}
+  s.name = "eutils"
   s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joon Lee, aka seouri"]
-  s.date = %q{2011-04-27}
-  s.description = %q{Lightweight Ruby API for NCBI Eutils. This gem only provides API for NCBI Eutils. If you need full access to other NCBI databases, try BioRuby (bio gem) instead.}
-  s.email = %q{seouri@gmail.com}
+  s.date = "2013-06-27"
+  s.description = "Lightweight Ruby API for NCBI Eutils. This gem only provides API for NCBI Eutils. If you need full access to other NCBI databases, try BioRuby (bio gem) instead."
+  s.email = "seouri@gmail.com"
   s.extra_rdoc_files = [
     "README.rdoc"
   ]
@@ -26,18 +26,13 @@ Gem::Specification.new do |s|
     "test/helper.rb",
     "test/test_eutils.rb"
   ]
-  s.homepage = %q{http://github.com/seouri/eutils}
+  s.homepage = "http://github.com/seouri/eutils"
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Lightweight Ruby API for NCBI Eutils}
-  s.test_files = [
-    "test/helper.rb",
-    "test/test_eutils.rb"
-  ]
+  s.rubygems_version = "2.0.3"
+  s.summary = "Lightweight Ruby API for NCBI Eutils"
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-    s.specification_version = 3
+    s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<shoulda>, [">= 0"])
