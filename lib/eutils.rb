@@ -10,7 +10,7 @@ class Eutils
   # Global constants
   # * host: http://http://eutils.ncbi.nlm.nih.gov
   # * EUTILS_INTERVAL
-  EUTILS_HOST = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+  EUTILS_HOST = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
   EUTILS_INTERVAL = 1.0 / 3.0
   @@last_access = nil
   @@last_access_mutex = nil
